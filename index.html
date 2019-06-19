@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Word Guessing Game!</h1>
+    <p id="letter"></p>
+    <p id="numberofguesses"></p>
+    <script>
+        //Creating array with word in it and creating a guess counter
+        var word = ['J', 'C', 'O', 'L', 'E'];
+
+        var guess = 0;
+
+
+        // Check if the key the user enters is in the word
+
+        document.onkeyup = function (event) {
+
+            // put whatever the user clicked into var userclick.
+            var userclick = event.key.toUpperCase();
+
+            // check if that key is in var word
+            if (userclick === "J" || userclick === "C" || userclick === "O" || userclick === "L" || userclick === "E") {
+
+                //put it in the p tag with id letter
+                document.querySelector("#letter").innerHTML = userclick;
+                document.querySelector("#numberofguesses").innerHTML = "Number of guesses :" + guess++
+            }
+
+            else (document.querySelector("#numberofguesses").innerHTML = "Number of guesses :" + guess++)
+
+
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
