@@ -20,7 +20,7 @@
                 <h1 id="header">Word Guessing Game!</h1>
                 <div class="jumbotron" id="jumbo">
                     <p id="letter"></p>
-                    <p id="numberofguesses">Number of guesses left : 10</p>
+                    <p id="numberofguesses">Number of guesses left : 15</p>
                     <p id="blankletters"></p>
                     <p id="lettersused">Letters you have used : </p>
                     <p id="hiddenword"></p>
@@ -32,7 +32,7 @@
     <script>
         //Creating array with word in it and creating a guess counter
         var word = ["JCOLE", "DRAKE", "KENDRICKLAMAR"];
-        var guessleft = 10;
+        var guessleft = 15;
         var randomWord = word[Math.floor(Math.random() * word.length)];
         var emptyWord = []
         //var userkey
@@ -52,16 +52,11 @@
         // function to check if guesses reach 0. Once they reach 0, refresh the page so user can play again
         function lose() {
             if (guessleft === 0) {
-                alert("You ran out of guesses. Please try again")
-                location.reload()
+                alert("You lost. The answer was: " + randomWord)
+                location.reload()           
             }
         }
 
-        function displayword() {
-            if (guessleft === 0) {
-                document.querySelector("#hiddenword").innerHTML = randomWord
-            }
-        }
 
         // --------------------------------------- CODE FOR GAME --------------------------------------------------------------------------------  
 
