@@ -5,46 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
-<body>
-    <h1>Word Guessing Game!</h1>
-    <p id="letter"></p>
-    <p id="numberofguesses"></p>
+<body class ="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1 id="header">Word Guessing Game!</h1>
+                <div class="jumbotron" id="jumbo">
+                    <p id="letter"></p>
+                    <p id="numberofguesses">Number of guesses left : 10</p>
+                    <p id="blankletters"></p>
+                    <p id="lettersused">Letters you have used : </p>
+                    <p id="hiddenword"></p>
+                 </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         //Creating array with word in it and creating a guess counter
-        var word = ['J', 'C', 'O', 'L', 'E'];
+        var word = ["JCOLE", "DRAKE", "KENDRICKLAMAR"];
+        var guessleft = 10;
+        var randomWord = word[Math.floor(Math.random() * word.length)];
+        var emptyWord = []
+        //var userkey
+        var counter = 0
+        var lettersUsed = []
 
-        var guess = 0;
 
-
-        // Check if the key the user enters is in the word
-
-        document.onkeyup = function (event) {
-
-            // put whatever the user clicked into var userclick.
-            var userclick = event.key.toUpperCase();
-
-            // check if that key is in var word
-            if (userclick === "J" || userclick === "C" || userclick === "O" || userclick === "L" || userclick === "E") {
-
-                //put it in the p tag with id letter
-                document.querySelector("#letter").innerHTML = userclick;
-                document.querySelector("#numberofguesses").innerHTML = "Number of guesses :" + guess++
+        //function to create blank underscores based on random word length
+        function createblank() {
+            for (i = 0; i < randomWord.length; i++) {
+                // for an array
+                emptyWord.push("_")
+                document.querySelector("#blankletters").innerHTML = emptyWord
             }
 
-            else (document.querySelector("#numberofguesses").innerHTML = "Number of guesses :" + guess++)
-
-
+        }
+        // function to check if guesses reach 0. Once they reach 0, refresh the page so user can play again
+        function lose() {
+            if (guessleft === 0) {
+                alert("You ran out of guesses. Please try again")
+                location.reload()
+            }
         }
 
+        function displayword() {
+            if (guessleft === 0) {
+                document.querySelector("#hiddenword").innerHTML = randomWord
+            }
+        }
 
+        // --------------------------------------- CODE FOR GAME --------------------------------------------------------------------------------  
 
+        // create blanks
+        createblank()
+        document.onkeyup = function (event) {
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+                userkey = event.key.toUpperCase();
+                //check if that letter is already guessed...
+                if (emptyWord.indexOf(userkey) === -1) {
+                    // replace the value in array with the userykey
+                    for (i = 0; i < randomWord.length; i++) {
+                        if (userkey === randomWord[i]) {
+                            emptyWord[i] = userkey
+                            document.querySelector("#blankletters").innerHTML = emptyWord
+                            counter = counter + 1
+                            if (counter === randomWord.length) {
+                                alert("YOU WON!!")
+                            }
+                        }
 
+                    }
+                    // reduce guuess outer after every click
+                    guessleft = guessleft - 1
+                    console.log(guessleft)
+                    document.querySelector("#numberofguesses").innerHTML = "Number of Guess Left :" + guessleft
+                    lose()
+                }
+                // Add letter clicked to lettersused array if it is not already in there
+                if (lettersUsed.indexOf(userkey) === -1) {
+                    lettersUsed = lettersUsed + " " + userkey
+                    document.querySelector("#lettersused").innerHTML = "Letters you have used:" + lettersUsed
 
+                }
 
-
+            }
+        }
     </script>
 </body>
 
