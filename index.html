@@ -44,7 +44,7 @@
         function createblank() {
             for (i = 0; i < randomWord.length; i++) {
                 // for an array
-                emptyWord.push("_")
+                emptyWord.push("_ ")
                 document.querySelector("#blankletters").innerHTML = emptyWord
             }
 
@@ -56,8 +56,9 @@
                 location.reload()           
             }
         }
+        
 
-
+        
         // --------------------------------------- CODE FOR GAME --------------------------------------------------------------------------------  
 
         // create blanks
@@ -79,11 +80,14 @@
                         }
 
                     }
-                    // reduce guuess outer after every click
+                    // reduce guuess outer after every time the user clicked key is incorrect
+                    var res = randomWord.split("")
+                    if(res.indexOf(userkey) === -1){
                     guessleft = guessleft - 1
-                    console.log(guessleft)
                     document.querySelector("#numberofguesses").innerHTML = "Number of Guess Left :" + guessleft
                     lose()
+
+                    }
                 }
                 // Add letter clicked to lettersused array if it is not already in there
                 if (lettersUsed.indexOf(userkey) === -1) {
